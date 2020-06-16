@@ -8,7 +8,12 @@ public class ATM {
        SwingUtilities.invokeLater(new Runnable() {
            @Override
            public void run() {
-               addUser user = new addUser();
+               addUser user = null;
+               try {
+                   user = new addUser();
+               } catch (SQLException throwables) {
+                   throwables.printStackTrace();
+               }
 
                user.setVisible(true);
            }

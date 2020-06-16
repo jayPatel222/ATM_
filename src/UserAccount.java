@@ -6,7 +6,7 @@ public class UserAccount {
     Connex connex = new Connex();
     Connection connection;
 
-    public UserAccount(String firstName, String lastName, String ssn, int score, int pin,int accountBalance, int accountType, int accountBank)
+    public UserAccount(String firstName, String lastName, String ssn, int score, int pin,float accountBalance, int accountType, int accountBank)
     {
         connection = connex.connects();
 
@@ -22,7 +22,7 @@ public class UserAccount {
             stmt.setString(4, ssn);
             stmt.setInt(5, score);
             stmt.setInt(6, pin);
-            stmt.setInt(7,accountBalance);
+            stmt.setFloat(7,accountBalance);
             stmt.setInt(8,accountType);
             stmt.setInt(9,accountBank);
             stmt.executeUpdate();
