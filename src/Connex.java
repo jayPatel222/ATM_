@@ -12,6 +12,7 @@ public class Connex {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(url, username, password);
+            System.out.println("S");
         } catch (SQLException e) {
             throw new Error("Problem", e);
         }
