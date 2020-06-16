@@ -5,9 +5,8 @@ public class ATM {
     public static void main(String[] args) throws SQLException {
 
         //new UserAccount("John", "Doe", "939467012", 750, 12345, 1,1);
-        //new Transaction(345.32, 69827, 1);
+        new Transaction("234 567 384", 3.33, 597273);
 
-        System.out.println(checkCredentials(69817, 12345));
     }
 
     static boolean checkCredentials(int accountToCheck, int pinToCheck) throws SQLException {
