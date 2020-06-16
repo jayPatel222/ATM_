@@ -11,12 +11,14 @@ public class addUser extends JFrame {
     private JButton addUserButton;
     private JTextField textField5;
     private JTextField textField6;
+    private JButton addButton;
 
     public addUser(){
         add(rootPanel);
         setTitle("Add User");
-        setSize(400,500);
-        addUserButton.addActionListener(new ActionListener() {
+        setSize(600,500);
+
+        addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(rootPanel,"User Added");
@@ -27,7 +29,7 @@ public class addUser extends JFrame {
                 int pin = Integer.parseInt(textField5.getText());
                 int accBalance = Integer.parseInt(textField6.getText());
                 new UserAccount(firstName, lastName, sin, score, pin, accBalance,1,1);
-            }
-        });
+        }
+    });
     }
 }
