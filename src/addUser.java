@@ -49,15 +49,13 @@ public class addUser extends JFrame  {
         String sql = "SELECT * from mydb.typeac;";
         PreparedStatement stmt = connection.prepareStatement(sql);
         ResultSet result = stmt.executeQuery();
-        while(result.next())
-        {
+        if(result.next()) {
             comboBox1.addItem(result.getInt("typeId") );
         }
         String sql2 = "SELECT * from mydb.bank;";
         PreparedStatement stmt2 = connection.prepareStatement(sql2);
         ResultSet result2 = stmt2.executeQuery();
-        while(result2.next())
-        {
+        if(result2.next()) {
             comboBox2.addItem(result2.getInt("bankId") );
         }
     }
