@@ -6,15 +6,15 @@ public class UserAccount {
     Connex connex = new Connex();
     Connection connection;
 
-    public UserAccount(String firstName, String lastName, String ssn, int score, int pin, int accountType, int accountBank)
+    public UserAccount(String firstName, String lastName, String ssn, int score, int pin,float accountBalance, int accountType, int accountBank)
     {
         connection = connex.connects();
 
         try {
             int accountId = getUniqueAccount();
 
-            String sql = "INSERT INTO useraccount (accountId, userFirstName, userLastName, userSSN, userScore, userPin," +
-                         "accountTypeId, accountBankId) VALUES (?,?,?,?,?,?,?,?);";
+            String sql = "INSERT INTO useraccount (accountId, userFirstName, userLastName, userSSN, userScore, userPin, accountBalance," +
+                         "accountTypeId, accountBankId) VALUES (?,?,?,?,?,?,?,?,?);";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, accountId);
             stmt.setString(2, firstName);
@@ -22,8 +22,9 @@ public class UserAccount {
             stmt.setString(4, ssn);
             stmt.setInt(5, score);
             stmt.setInt(6, pin);
-            stmt.setInt(7,accountType);
-            stmt.setInt(8,accountBank);
+            stmt.setFloat(7,accountBalance);
+            stmt.setInt(8,accountType);
+            stmt.setInt(9,accountBank);
             stmt.executeUpdate();
 
             System.out.printf("User: %s %s\nSSN: %s\nAccount Number: %d\n", firstName, lastName, ssn, accountId);
