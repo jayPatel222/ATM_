@@ -18,6 +18,7 @@ public class addUser extends JFrame  {
     private JButton addButton;
     private JComboBox comboBox1;
     private JComboBox comboBox2;
+    private JButton listUsersButton;
 
     public addUser() throws SQLException {
 
@@ -58,5 +59,35 @@ public class addUser extends JFrame  {
         if(result2.next()) {
             comboBox2.addItem(result2.getInt("bankId") );
         }
+        listUsersButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (ClassNotFoundException classNotFoundException) {
+                    classNotFoundException.printStackTrace();
+                } catch (InstantiationException instantiationException) {
+                    instantiationException.printStackTrace();
+                } catch (IllegalAccessException illegalAccessException) {
+                    illegalAccessException.printStackTrace();
+                } catch (UnsupportedLookAndFeelException unsupportedLookAndFeelException) {
+                    unsupportedLookAndFeelException.printStackTrace();
+                }
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        listUsers user = null;
+                        try {
+                            user = new listUsers();
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+
+                        user.setVisible(true);
+                    }
+                });
+            }
+        });
     }
 }

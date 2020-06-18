@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Bank {
+public class
+
+
+Bank {
     private String name;
     private ArrayList<UserAccount> clients;
     private ArrayList<Account> bankAccounts;
