@@ -66,7 +66,7 @@ public class Transaction {
             }
         }
     }
-
+    // Payment has its own constructor
     public Transaction(String code, double amount, int account) throws SQLException {
         connection = connex.connects();
 

@@ -15,6 +15,17 @@ public class Loan {
         double termFee = getFeeTerm(term);
         double totalFee = scoreFee + termFee;
 
+        String sql = "INSERT INTO loan (loanAccountId, loanAmount, loanLength, loanFee, loanTypeId)" +
+                       "VALUES (?,?,?,?,?);";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, account);
+        stmt.setDouble(2, amount);
+        stmt.setInt(3, term);
+        stmt.setDouble(4, totalFee);
+        stmt.setInt(5, loanType);
+        stmt.executeUpdate();
+        stmt.clearParameters();
+
 
     }
 
