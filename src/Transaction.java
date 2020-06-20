@@ -91,7 +91,7 @@ public class Transaction {
                 stmtUp.setString(1, code);
                 stmtUp.setDouble(2, amount);
                 stmtUp.setInt(3, account);
-                stmtUp.setInt(4, 3);
+                stmtUp.setInt(4, 1);
                 stmtUp.executeUpdate();
                 stmtUp.clearParameters();
 

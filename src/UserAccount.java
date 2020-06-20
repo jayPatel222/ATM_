@@ -37,7 +37,7 @@ public class UserAccount {
         }
     }
 
-    private int getUniqueAccount() throws SQLException {
+    public int getUniqueAccount() throws SQLException {
         String accountNumber = "";
         Random rdm = new Random();
         int length = 6;

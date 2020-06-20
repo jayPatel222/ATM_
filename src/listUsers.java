@@ -13,7 +13,7 @@ public class listUsers extends JFrame {
         Connex connex = new Connex();
         Connection connection = connex.connects();
         add(listPanel);
-        setTitle("Add User");
+        setTitle("Users list");
         setSize(600, 500);
 
         DefaultListModel listModel = new DefaultListModel();
