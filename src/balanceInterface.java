@@ -20,14 +20,15 @@ public class balanceInterface  extends JFrame {
     private JTextField textField2;
     private JButton confirmButton;
     private JPanel balanceInterface;
-     float accountBalance;
+    private JPanel panel2;
+    float accountBalance;
    static String refId;
 
     public balanceInterface() throws SQLException {
         int accounToFetch = atmInterface.getNo();
         Connex connex = new Connex();
         Connection connection = connex.connects();
-        add(balanceInterface);
+        add(panel1);
         setTitle("Process Transaction");
         setSize(600, 500);
         String sql = "SELECT accountBalance from useraccount WHERE accountId = ?";
@@ -53,8 +54,9 @@ public class balanceInterface  extends JFrame {
                     try {
                          refId = getSaltString();
                         new Transaction(refId, money, atmInterface.getNo());
-                        JOptionPane.showMessageDialog(panel1,refId);
-                        System.exit(0);
+                        JOptionPane.showMessageDialog(panel1,"Reference No.:- "+refId+"\n"+" Transaction amount:- "+money +
+                                "\nAccount No:- " +atmInterface.getNo());
+                        dispose();
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }

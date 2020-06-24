@@ -12,6 +12,7 @@ public class atmInterface extends JFrame {
     private JTextField textField1;
     private JTextField textField2;
     private JButton proceedButton;
+    private JPanel atmInterface1;
     private JPanel atmInterface;
     public  static int AcNo;
 
@@ -29,7 +30,8 @@ public class atmInterface extends JFrame {
                 try {
                      AcNo = checkCredentials(parseInt(textField1.getText()),parseInt(textField2.getText()));
                     if (AcNo != 0){
-
+                        dispose();
+                       atmInterface.setVisible(false);
                         SwingUtilities.invokeLater(new Runnable() {
                             @Override
                             public void run() {
@@ -43,10 +45,11 @@ public class atmInterface extends JFrame {
                                 user.setVisible(true);
                             }
                         });
+
                     }
                     else {
                         AcNo = 0;
-                        JOptionPane.showMessageDialog(atmInterface,"You have Do not Have Account " +
+                        JOptionPane.showMessageDialog(atmInterface1,"You have Do not Have Account " +
                                 "Please Check Account No or Pin");
                     }
                 } catch (SQLException throwables) {

@@ -100,7 +100,10 @@ public class Transaction {
                 stmtUp.setDouble(1, amount);
                 stmtUp.setInt(2, account);
                 stmtUp.executeUpdate();
+
+            }
             }
         }
     }
-}
+
+
