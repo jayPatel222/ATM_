@@ -8,17 +8,18 @@ public class Transaction {
     Connex connex = new Connex();
     Connection connection;
 
-    public Transaction(double amount, int account, int transactionType) throws SQLException {
+    public Transaction(String code,double amount, int account, int transactionType) throws SQLException {
         connection = connex.connects();
 
-        if (transactionType == 1) // Deposit transaction
+        if (transactionType == 2) // Deposit transaction
         {
-            String sql = "INSERT INTO transaction (transactionAmount, transactionDateTime, transactionAccountId," +
-                    "transactionTypeId) VALUES (?,CURRENT_TIMESTAMP,?,?);";
+            String sql = "INSERT INTO transaction (transactionCode,transactionAmount, transactionDateTime, transactionAccountId," +
+                    "transactionTypeId) VALUES (?,?,CURRENT_TIMESTAMP,?,?);";
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setDouble(1, amount);
-            stmt.setInt(2, account);
-            stmt.setInt(3, transactionType);
+            stmt.setString(1,code);
+            stmt.setDouble(2, amount);
+            stmt.setInt(3, account);
+            stmt.setInt(4, transactionType);
             stmt.executeUpdate();
 
             stmt.clearParameters();
@@ -48,12 +49,13 @@ public class Transaction {
                 }
                 else
                 {
-                    String sqlUp = "INSERT INTO transaction (transactionAmount, transactionDateTime, transactionAccountId," +
-                            "transactionTypeId) VALUES (?,CURRENT_TIMESTAMP,?,?);";
+                    String sqlUp = "INSERT INTO transaction (transactionCode, transactionAmount, transactionDateTime," +
+                            "transactionAccountId, transactionTypeId) VALUES (?,?,CURRENT_TIMESTAMP,?,?);";
                     PreparedStatement stmtUp = connection.prepareStatement(sqlUp);
-                    stmtUp.setDouble(1, amount);
-                    stmtUp.setInt(2, account);
-                    stmtUp.setInt(3, transactionType);
+                    stmtUp.setString(1, code);
+                    stmtUp.setDouble(2, amount);
+                    stmtUp.setInt(3, account);
+                    stmtUp.setInt(4, transactionType);
                     stmtUp.executeUpdate();
                     stmtUp.clearParameters();
 

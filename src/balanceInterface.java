@@ -46,14 +46,22 @@ public class balanceInterface  extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                int transType = 0;
+                if (withdrawCheckBox.isSelected()){
+                    transType = 1;
+                }
+                else if (depositCheckBox.isSelected()){
+                    transType = 2;
+                }
                 float money = Float.parseFloat(textField2.getText());
-                if (money > accountBalance){
+                if (money > accountBalance && transType == 1){
                     JOptionPane.showMessageDialog(panel1,"Not Enough Funds");
                 }
                 else {
                     try {
                          refId = getSaltString();
-                        new Transaction(refId, money, atmInterface.getNo());
+                        new Transaction(refId,money, atmInterface.getNo(), transType);
+
                         JOptionPane.showMessageDialog(panel1,"Reference No.:- "+refId+"\n"+" Transaction amount:- "+money +
                                 "\nAccount No:- " +atmInterface.getNo());
                         dispose();
