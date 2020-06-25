@@ -63,6 +63,7 @@ public class addUser extends JFrame  {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                dispose();
                 try {
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 } catch (ClassNotFoundException classNotFoundException) {

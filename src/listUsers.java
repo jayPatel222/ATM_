@@ -1,30 +1,65 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class listUsers extends JFrame {
-    private JPanel listPanel;
-    private JList list1;
+
+    JTable table;
+    private JScrollPane sp;
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 
     public listUsers() throws SQLException {
 
         Connex connex = new Connex();
         Connection connection = connex.connects();
-        add(listPanel);
+
         setTitle("Users list");
         setSize(600, 500);
 
-        DefaultListModel listModel = new DefaultListModel();
+
         String sql = "SELECT * from mydb.useraccount;";
         PreparedStatement stmt = connection.prepareStatement(sql);
         ResultSet result = stmt.executeQuery();
-        while(result.next()){
-            listModel.addElement(result.getObject("userFirstName") +"  "+result.getObject("userLastName")
-                + "  " +    result.getObject("accountId"));// I think you want get this field
+        int rowCount =0;
+        String sql1 = "SELECT * from mydb.useraccount;";
+        PreparedStatement stmt1 = connection.prepareStatement(sql1);
+        ResultSet result1 = stmt1.executeQuery();
+        while(result1.next()){
+            rowCount++;
+        }
+        String[][] resultSet = new String[rowCount][5];
+        int row = 0;
+        while (result.next()) {
+            for (int i = 0; i < 1; i++) {
+                resultSet[row][i] = result.getObject("userFirstName").toString() +"   "+ result.getObject("userLastName").toString();
+                resultSet[row][i+1] = result.getObject("accountBalance").toString();
+                resultSet[row][i+2] = result.getObject("accountId").toString();
+                resultSet[row][i+3] = result.getObject("accountTypeId").toString();
+                resultSet[row][i+4] = result.getObject("accountBankId").toString();
+            }
+            row++;
         }
 
-        list1.setModel(listModel);
+
+        // Column Names
+        String[] columnNames = { "Full Name", "Balance","Account No.","Account Type","Bank ID"};
+
+        // Initializing the JTable
+         table = new JTable(resultSet,columnNames);
+         table.setBounds(30, 40, 200, 300);
+         sp = new JScrollPane(table);
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+
+         add(sp);
     }
 }
