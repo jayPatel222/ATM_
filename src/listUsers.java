@@ -32,7 +32,7 @@ public class listUsers extends JFrame {
         while(result1.next()){
             rowCount++;
         }
-        String[][] resultSet = new String[rowCount][5];
+        String[][] resultSet = new String[rowCount][8];
         int row = 0;
         while (result.next()) {
             for (int i = 0; i < 1; i++) {
@@ -41,13 +41,15 @@ public class listUsers extends JFrame {
                 resultSet[row][i+2] = result.getObject("accountId").toString();
                 resultSet[row][i+3] = result.getObject("accountTypeId").toString();
                 resultSet[row][i+4] = result.getObject("accountBankId").toString();
+                resultSet[row][i+5] = result.getObject("userScore").toString();
+                resultSet[row][i+6] = result.getObject("userSSN").toString();
             }
             row++;
         }
 
 
         // Column Names
-        String[] columnNames = { "Full Name", "Balance","Account No.","Account Type","Bank ID"};
+        String[] columnNames = { "Full Name", "Balance","Account No.","Account Type","Bank ID","Score","SIN"};
 
         // Initializing the JTable
          table = new JTable(resultSet,columnNames);
@@ -59,6 +61,8 @@ public class listUsers extends JFrame {
         table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
 
          add(sp);
     }

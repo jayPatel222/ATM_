@@ -19,6 +19,7 @@ public class addUser extends JFrame  {
     private JComboBox comboBox1;
     private JComboBox comboBox2;
     private JButton listUsersButton;
+    private JButton manageLoansButton;
 
     public addUser() throws SQLException {
 
@@ -63,7 +64,6 @@ public class addUser extends JFrame  {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
                 try {
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 } catch (ClassNotFoundException classNotFoundException) {
@@ -84,6 +84,20 @@ public class addUser extends JFrame  {
                         } catch (SQLException throwables) {
                             throwables.printStackTrace();
                         }
+
+                        user.setVisible(true);
+                    }
+                });
+            }
+        });
+        manageLoansButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        loanInterface user = null;
+                        user = new loanInterface();
 
                         user.setVisible(true);
                     }

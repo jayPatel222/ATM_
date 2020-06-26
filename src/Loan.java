@@ -8,23 +8,31 @@ public class Loan {
     Connex connex = new Connex();
     Connection connection;
 
-    public Loan(int account, double amount, int term, int loanType) throws SQLException {
+    public Loan(int account, double amount, int term) throws SQLException {
         connection = connex.connects();
         int userScore = getUserScore(account);
         double scoreFee = getFeeScore(userScore);
         double termFee = getFeeTerm(term);
         double totalFee = scoreFee + termFee;
 
-        String sql = "INSERT INTO loan (loanAccountId, loanAmount, loanLength, loanFee, loanTypeId)" +
-                       "VALUES (?,?,?,?,?);";
+        String sql = "INSERT INTO loan (loanAccountId, loanAmount, loanLength, loanFee)" +
+                       "VALUES (?,?,?,?);";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, account);
         stmt.setDouble(2, amount);
         stmt.setInt(3, term);
         stmt.setDouble(4, totalFee);
-        stmt.setInt(5, loanType);
         stmt.executeUpdate();
+
         stmt.clearParameters();
+        sql = "UPDATE useraccount SET accountBalance = accountBalance + ? WHERE accountId = ?;";
+        stmt = connection.prepareStatement(sql);
+        stmt.setDouble(1, amount);
+        stmt.setInt(2, account);
+        stmt.executeUpdate();
+
+        stmt.close();
+        connection.close();
 
 
     }
