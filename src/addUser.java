@@ -32,19 +32,26 @@ public class addUser extends JFrame  {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(rootPanel,"User Added");
                 String firstName = textField1.getText();
                 String lastName = textField2.getText();
                 String sin = textField3.getText();
                 int score = Integer.parseInt(textField4.getText());
                 int pin = Integer.parseInt(textField5.getText());
                 float accBalance = Float.parseFloat(textField6.getText());
-                String selectedItem = comboBox1.getSelectedItem().toString();
-                int ch1 = Integer.parseInt(selectedItem);
-                String selectedItem2 = comboBox2.getSelectedItem().toString();
-                int ch2 = Integer.parseInt(selectedItem2);
-                System.out.println(ch1 + " "+ ch2);
-                new UserAccount(firstName, lastName, sin, score, pin, accBalance,ch1,ch2);
+                if (firstName.equals("") || lastName.equals("") || sin.equals("") || score == 0 || pin == 0 ||
+                accBalance == 0.0) {
+                    JOptionPane.showMessageDialog(rootPanel, "All fields are Mandotary !!");
+                }
+                else {
+
+                    int item = Integer.parseInt(comboBox1.getSelectedItem().toString().substring(0,1));
+                    int ch1 = Integer.parseInt(String.valueOf(item));
+
+                    int item1 = Integer.parseInt(comboBox2.getSelectedItem().toString().substring(0,1));
+                    int ch2 = Integer.parseInt(String.valueOf(item1));
+                    System.out.println(item + " " + item1);
+                    new UserAccount(firstName, lastName, sin, score, pin, accBalance, ch1, ch2);
+                }
 
         }
     });
@@ -52,13 +59,15 @@ public class addUser extends JFrame  {
         PreparedStatement stmt = connection.prepareStatement(sql);
         ResultSet result = stmt.executeQuery();
         while(result.next()) {
-            comboBox1.addItem(result.getInt("typeId") );
+            String str = result.getInt("typeId") + "   " + result.getString("typeName") ;
+            comboBox1.addItem(str);
         }
         String sql2 = "SELECT * from mydb.bank;";
         PreparedStatement stmt2 = connection.prepareStatement(sql2);
         ResultSet result2 = stmt2.executeQuery();
         while(result2.next()) {
-            comboBox2.addItem(result2.getInt("bankId") );
+            String str2 = result2.getInt("bankId") + "   " + result2.getString("bankName") ;
+            comboBox2.addItem(str2);
         }
         listUsersButton.addActionListener(new ActionListener() {
 

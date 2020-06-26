@@ -16,7 +16,7 @@ public class Loan {
         double totalFee = scoreFee + termFee;
 
         String sql = "INSERT INTO loan (loanAccountId, loanAmount, loanLength, loanFee)" +
-                       "VALUES (?,?,?,?);";
+                "VALUES (?,?,?,?);";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, account);
         stmt.setDouble(2, amount);
@@ -50,7 +50,7 @@ public class Loan {
         return userScore;
     }
 
-    private double getFeeScore(int score){
+    private double getFeeScore(int score) {
         double loanFee;
 
         if (score < 650)
@@ -65,8 +65,7 @@ public class Loan {
         return loanFee;
     }
 
-    private double getFeeTerm(int months)
-    {
+    private double getFeeTerm(int months) {
         double feeTerm;
 
         if (months < 12)

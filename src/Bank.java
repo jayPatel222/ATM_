@@ -9,8 +9,7 @@ Bank {
     private ArrayList<UserAccount> clients;
     private ArrayList<Account> bankAccounts;
 
-    public String addNewAccount()
-    {
+    public String addNewAccount() {
         String accountId = "";
 
         Random rg = new Random();

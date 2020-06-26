@@ -11,6 +11,7 @@ public class loanInterface extends JFrame{
     private JTextField textField3;
     private JButton issueButton;
     private JPanel loanPanel;
+    private JButton onGoingLoansButton;
     Connex connex = new Connex();
 
     public loanInterface() {
@@ -25,10 +26,46 @@ public class loanInterface extends JFrame{
                     int acc = Integer.parseInt(textField1.getText());
                     int amount = Integer.parseInt(textField2.getText());
                     int months = Integer.parseInt(textField3.getText());
-                    new Loan(acc,amount,months);
+                    if (acc == 0 || amount == 0 || months == 0){
+                        JOptionPane.showMessageDialog(loanPanel, "All fields are Mandotary !!");
+                    }
+                    else {
+                        new Loan(acc, amount, months);
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                listLoans user = null;
+                                try {
+                                    user = new listLoans();
+                                } catch (SQLException throwables) {
+                                    throwables.printStackTrace();
+                                }
+
+                                user.setVisible(true);
+                            }
+                        });
+                    }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+            }
+        });
+        onGoingLoansButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        listLoans user = null;
+                        try {
+                            user = new listLoans();
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+
+                        user.setVisible(true);
+                    }
+                });
             }
         });
     }

@@ -8,7 +8,7 @@ public class Transaction {
     Connex connex = new Connex();
     Connection connection;
 
-    public Transaction(String code,double amount, int account, int transactionType) throws SQLException {
+    public Transaction(String code, double amount, int account, int transactionType) throws SQLException {
         connection = connex.connects();
 
         if (transactionType == 2) // Deposit transaction
@@ -16,7 +16,7 @@ public class Transaction {
             String sql = "INSERT INTO transaction (transactionCode,transactionAmount, transactionDateTime, transactionAccountId," +
                     "transactionTypeId) VALUES (?,?,CURRENT_TIMESTAMP,?,?);";
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1,code);
+            stmt.setString(1, code);
             stmt.setDouble(2, amount);
             stmt.setInt(3, account);
             stmt.setInt(4, transactionType);
@@ -31,8 +31,7 @@ public class Transaction {
 
             stmt.close();
             connection.close();
-        }
-        else //Withdrawal
+        } else //Withdrawal
         {
             double balance;
             String sql = "SELECT accountBalance FROM useraccount WHERE accountId = ?;";
@@ -40,15 +39,11 @@ public class Transaction {
             stmt.setInt(1, account);
 
             ResultSet result = stmt.executeQuery();
-            if (result.next())
-            {
+            if (result.next()) {
                 balance = result.getDouble(1);
-                if (balance - amount < 0)
-                {
+                if (balance - amount < 0) {
                     System.out.println("Insufficient balance!");
-                }
-                else
-                {
+                } else {
                     String sqlUp = "INSERT INTO transaction (transactionCode, transactionAmount, transactionDateTime," +
                             "transactionAccountId, transactionTypeId) VALUES (?,?,CURRENT_TIMESTAMP,?,?);";
                     PreparedStatement stmtUp = connection.prepareStatement(sqlUp);
@@ -68,6 +63,7 @@ public class Transaction {
             }
         }
     }
+
     // Payment has its own constructor
     public Transaction(String code, double amount, int account) throws SQLException {
         connection = connex.connects();
@@ -78,15 +74,11 @@ public class Transaction {
         stmt.setInt(1, account);
 
         ResultSet result = stmt.executeQuery();
-        if (result.next())
-        {
+        if (result.next()) {
             balance = result.getDouble(1);
-            if (balance - amount < 0)
-            {
+            if (balance - amount < 0) {
                 System.out.println("Insufficient balance!");
-            }
-            else
-            {
+            } else {
                 String sqlUp = "INSERT INTO transaction (transactionCode, transactionAmount, transactionDateTime," +
                         "transactionAccountId, transactionTypeId) VALUES (?,?,CURRENT_TIMESTAMP,?,?);";
                 PreparedStatement stmtUp = connection.prepareStatement(sqlUp);
@@ -104,8 +96,8 @@ public class Transaction {
                 stmtUp.executeUpdate();
 
             }
-            }
         }
     }
+}
 
 

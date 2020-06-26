@@ -7,8 +7,7 @@ public class Connex {
     String username = "root";
     String password = "";
 
-    public Connection connects()
-    {
+    public Connection connects() {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(url, username, password);
