@@ -24,7 +24,7 @@ public class balanceInterface  extends JFrame {
     float accountBalance;
    static String refId;
 
-    public balanceInterface() throws SQLException {
+    public balanceInterface() throws SQLException, ClassNotFoundException {
         int accounToFetch = atmInterface.getNo();
         Connex connex = new Connex();
         Connection connection = connex.connects();

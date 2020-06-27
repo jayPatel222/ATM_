@@ -38,7 +38,7 @@ public class atmInterface extends JFrame {
                                 balanceInterface user = null;
                                 try {
                                     user = new balanceInterface();
-                                } catch (SQLException throwables) {
+                                } catch (SQLException | ClassNotFoundException throwables) {
                                     throwables.printStackTrace();
                                 }
 

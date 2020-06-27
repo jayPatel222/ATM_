@@ -22,11 +22,11 @@ public class listLoans extends JFrame {
         setSize(600, 500);
 
 
-        String sql = "SELECT * from mydb.loan;";
+        String sql = "SELECT * from atmproject.loan;";
         PreparedStatement stmt = connection.prepareStatement(sql);
         ResultSet result = stmt.executeQuery();
         int rowCount =0;
-        String sql1 = "SELECT * from mydb.loan;";
+        String sql1 = "SELECT * from atmproject.loan;";
         PreparedStatement stmt1 = connection.prepareStatement(sql1);
         ResultSet result1 = stmt1.executeQuery();
         while(result1.next()){

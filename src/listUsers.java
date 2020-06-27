@@ -13,7 +13,7 @@ public class listUsers extends JFrame {
     private JScrollPane sp;
     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 
-    public listUsers() throws SQLException {
+    public listUsers() throws SQLException, ClassNotFoundException {
 
         Connex connex = new Connex();
         Connection connection = connex.connects();
@@ -22,11 +22,11 @@ public class listUsers extends JFrame {
         setSize(600, 500);
 
 
-        String sql = "SELECT * from mydb.useraccount;";
+        String sql = "SELECT * from atmproject.useraccount;";
         PreparedStatement stmt = connection.prepareStatement(sql);
         ResultSet result = stmt.executeQuery();
         int rowCount =0;
-        String sql1 = "SELECT * from mydb.useraccount;";
+        String sql1 = "SELECT * from atmproject.useraccount;";
         PreparedStatement stmt1 = connection.prepareStatement(sql1);
         ResultSet result1 = stmt1.executeQuery();
         while(result1.next()){

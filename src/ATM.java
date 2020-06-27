@@ -3,14 +3,18 @@ import java.sql.*;
 
 public class ATM {
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    public static void main(String[] args) throws SQLException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                addUser user = null;
+                atmInterface user = null;
                 try {
-                    user = new addUser();
+                    user = new atmInterface();
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -25,18 +29,5 @@ public class ATM {
 
     }
 
-    static boolean checkCredentials(int accountToCheck, int pinToCheck) throws SQLException {
-        Connex connex = new Connex();
-        Connection connection = connex.connects();
-        int pinDB = 0;
 
-        String sql = "SELECT userPIN from useraccount WHERE accountId = ?";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, accountToCheck);
-        ResultSet result = stmt.executeQuery();
-        if (result.next())
-            pinDB = result.getInt(1);
-
-        return pinDB == pinToCheck;
-    }
 }

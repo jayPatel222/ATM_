@@ -55,14 +55,14 @@ public class addUser extends JFrame  {
 
         }
     });
-        String sql = "SELECT * from mydb.typeac;";
+        String sql = "SELECT * from atmproject.typeac;";
         PreparedStatement stmt = connection.prepareStatement(sql);
         ResultSet result = stmt.executeQuery();
         while(result.next()) {
             String str = result.getInt("typeId") + "   " + result.getString("typeName") ;
             comboBox1.addItem(str);
         }
-        String sql2 = "SELECT * from mydb.bank;";
+        String sql2 = "SELECT * from atmproject.bank;";
         PreparedStatement stmt2 = connection.prepareStatement(sql2);
         ResultSet result2 = stmt2.executeQuery();
         while(result2.next()) {
@@ -92,6 +92,8 @@ public class addUser extends JFrame  {
                             user = new listUsers();
                         } catch (SQLException throwables) {
                             throwables.printStackTrace();
+                        } catch (ClassNotFoundException classNotFoundException) {
+                            classNotFoundException.printStackTrace();
                         }
 
                         user.setVisible(true);

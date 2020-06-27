@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="@localhost_ATM" uuid="2bb66bb2-8ad3-4e26-854d-6db88253b119">
+    <data-source source="LOCAL" name="atmproject@den1.mysql3.gear.host" uuid="d17c2955-625a-4523-ad9e-4eb03703c022">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/mydb</jdbc-url>
+      <jdbc-url>jdbc:mysql://den1.mysql3.gear.host:3306/atmproject</jdbc-url>
     </data-source>
   </component>
 </project>
