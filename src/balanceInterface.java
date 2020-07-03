@@ -60,7 +60,7 @@ public class balanceInterface  extends JFrame {
                 else {
                     try {
                          refId = getSaltString();
-                        new Transaction(refId,money, atmInterface.getNo(), transType);
+                        new Transaction(refId,money, atmInterface.getNo(), transType,atmInterface.getNo());
 
                         JOptionPane.showMessageDialog(panel1,"Reference No.:- "+refId+"\n"+" Transaction amount:- "+money +
                                 "\nAccount No:- " +atmInterface.getNo());

@@ -8,18 +8,19 @@ public class Transaction {
     Connex connex = new Connex();
     Connection connection;
 
-    public Transaction(String code, double amount, int account, int transactionType) throws SQLException {
+    public Transaction(String code, double amount, int account, int transactionType, int beneficiaryId) throws SQLException {
         connection = connex.connects();
 
         if (transactionType == 2) // Deposit transaction
         {
             String sql = "INSERT INTO transaction (transactionCode,transactionAmount, transactionDateTime, transactionAccountId," +
-                    "transactionTypeId) VALUES (?,?,CURRENT_TIMESTAMP,?,?);";
+            "transactionTypeId,beneficiaryAcc) VALUES (?,?,CURRENT_TIMESTAMP,?,?,?);";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, code);
             stmt.setDouble(2, amount);
             stmt.setInt(3, account);
             stmt.setInt(4, transactionType);
+            stmt.setInt(5,beneficiaryId);
             stmt.executeUpdate();
 
             stmt.clearParameters();
@@ -31,7 +32,37 @@ public class Transaction {
 
             stmt.close();
             connection.close();
-        } else //Withdrawal
+        } else if (transactionType == 3){
+            String sql = "INSERT INTO transaction (transactionCode,transactionAmount, transactionDateTime, transactionAccountId," +
+                    "transactionTypeId,beneficiaryAcc) VALUES (?,?,CURRENT_TIMESTAMP,?,?,?);";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, code);
+            stmt.setDouble(2, amount);
+            stmt.setInt(3, account);
+            stmt.setInt(4, transactionType);
+            stmt.setInt(5,beneficiaryId);
+            stmt.executeUpdate();
+
+            stmt.clearParameters();
+            sql = "UPDATE useraccount SET accountBalance = accountBalance - ? WHERE accountId = ?;";
+            stmt = connection.prepareStatement(sql);
+            stmt.setDouble(1, amount);
+            stmt.setInt(2, account);
+            stmt.executeUpdate();
+
+
+
+            stmt.clearParameters();
+            sql = "UPDATE useraccount SET accountBalance = accountBalance + ? WHERE accountId = ?;";
+            stmt = connection.prepareStatement(sql);
+            stmt.setDouble(1, amount);
+            stmt.setInt(2, beneficiaryId);
+            stmt.executeUpdate();
+
+            stmt.close();
+            connection.close();
+        }//Withdrawal
+        else
         {
             double balance;
             String sql = "SELECT accountBalance FROM useraccount WHERE accountId = ?;";

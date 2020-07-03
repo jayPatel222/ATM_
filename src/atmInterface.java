@@ -35,12 +35,8 @@ public class atmInterface extends JFrame {
                         SwingUtilities.invokeLater(new Runnable() {
                             @Override
                             public void run() {
-                                balanceInterface user = null;
-                                try {
-                                    user = new balanceInterface();
-                                } catch (SQLException | ClassNotFoundException throwables) {
-                                    throwables.printStackTrace();
-                                }
+                                selectionInterface user = null;
+                                user = new selectionInterface();
 
                                 user.setVisible(true);
                             }
