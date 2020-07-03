@@ -65,6 +65,19 @@ public class balanceInterface  extends JFrame {
 
                         JOptionPane.showMessageDialog(panel1,"Reference No.:- "+refId+"\n"+" Transaction amount:- "+money +
                                 "\nAccount No:- " +atmInterface.getNo());
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                atmInterface user = null;
+                                try {
+                                    user = new atmInterface();
+                                } catch (SQLException throwables) {
+                                    throwables.printStackTrace();
+                                }
+
+                                user.setVisible(true);
+                            }
+                        });
                         dispose();
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();

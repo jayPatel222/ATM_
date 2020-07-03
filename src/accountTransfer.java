@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -72,7 +74,7 @@ public class accountTransfer extends JFrame{
                     }
                     try {
                         if (!result1.next()){
-                            JOptionPane.showMessageDialog(accountTransfer,"Account Doesnot Exists");
+                            JOptionPane.showMessageDialog(accountTransfer,"Account Does not Exists");
                         }
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
@@ -80,6 +82,22 @@ public class accountTransfer extends JFrame{
                     String refId = getSaltString();
                     try {
                         new Transaction(refId,money, atmInterface.getNo(), 3,recAccountno);
+                        JOptionPane.showMessageDialog(accountTransfer,"Reference No.:- "+refId+"\n"+" Transaction amount:- "+money +
+                                "\nAccount No:- " +atmInterface.getNo());
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                atmInterface user = null;
+                                try {
+                                    user = new atmInterface();
+                                } catch (SQLException throwables) {
+                                    throwables.printStackTrace();
+                                }
+
+                                user.setVisible(true);
+                            }
+                        });
+                        dispose();
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
@@ -103,6 +121,28 @@ public class accountTransfer extends JFrame{
                     }
                 });
             dispose();
+            }
+        });
+        textField2.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!((c >= '0') && (c <= '9') ||
+                        (c == KeyEvent.VK_BACK_SPACE) ||
+                        (c == KeyEvent.VK_DELETE))) {
+                    getToolkit().beep();
+                    e.consume();
+                }
+            }
+        });
+        textField3.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!((c >= '0') && (c <= '9') ||
+                        (c == KeyEvent.VK_BACK_SPACE) ||
+                        (c == KeyEvent.VK_DELETE))) {
+                    getToolkit().beep();
+                    e.consume();
+                }
             }
         });
     }

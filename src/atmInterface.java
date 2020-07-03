@@ -47,8 +47,8 @@ public class atmInterface extends JFrame {
                     }
                     else {
                         AcNo = 0;
-                        JOptionPane.showMessageDialog(atmInterface1,"You have Do not Have Account " +
-                                "Please Check Account No or Pin");
+                        JOptionPane.showMessageDialog(atmInterface1,"You  Do not Have Account " +
+                                "Please Check Account No. and Pin");
                     }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
