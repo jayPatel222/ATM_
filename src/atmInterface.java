@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -50,6 +52,28 @@ public class atmInterface extends JFrame {
                     }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
+                }
+            }
+        });
+        textField1.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!((c >= '0') && (c <= '9') ||
+                        (c == KeyEvent.VK_BACK_SPACE) ||
+                        (c == KeyEvent.VK_DELETE))) {
+                    getToolkit().beep();
+                    e.consume();
+                }
+            }
+        });
+        textField2.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!((c >= '0') && (c <= '9') ||
+                        (c == KeyEvent.VK_BACK_SPACE) ||
+                        (c == KeyEvent.VK_DELETE))) {
+                    getToolkit().beep();
+                    e.consume();
                 }
             }
         });

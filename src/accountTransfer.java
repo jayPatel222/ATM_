@@ -15,6 +15,7 @@ public class accountTransfer extends JFrame{
     private JPanel accountTransfer;
     private JTextField textField4;
     private JTextField textField5;
+    private JButton cancelButton;
     float accountInfo;
 
     public accountTransfer() throws SQLException {
@@ -83,6 +84,25 @@ public class accountTransfer extends JFrame{
                         throwables.printStackTrace();
                     }
                 }
+            }
+        });
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        atmInterface user = null;
+                        try {
+                            user = new atmInterface();
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+
+                        user.setVisible(true);
+                    }
+                });
+            dispose();
             }
         });
     }

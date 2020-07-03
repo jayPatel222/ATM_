@@ -21,6 +21,7 @@ public class balanceInterface  extends JFrame {
     private JButton confirmButton;
     private JPanel balanceInterface;
     private JPanel panel2;
+    private JButton cancelButton;
     float accountBalance;
    static String refId;
 
@@ -73,6 +74,26 @@ public class balanceInterface  extends JFrame {
             }
         });
 
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        atmInterface user = null;
+                        try {
+                            user = new atmInterface();
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+
+                        user.setVisible(true);
+                    }
+                });
+                dispose();
+            }
+
+        });
     }
     protected String getSaltString() {
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";

@@ -1,49 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="loanInterface">
-  <grid id="61529" binding="loanPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="61529" binding="loanPanel" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
     </constraints>
     <properties>
-      <background color="-864816"/>
+      <background color="-895651"/>
     </properties>
     <border type="line">
       <title-color color="-895651"/>
     </border>
     <children>
       <grid id="27dc6" binding="loanPanel1" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
+        <margin top="50" left="50" bottom="50" right="50"/>
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
-        <border type="bevel-lowered" title="Loan" title-justification="2"/>
+        <border type="line" title-justification="2"/>
         <children>
           <component id="3b72e" class="javax.swing.JLabel">
             <constraints>
               <grid row="0" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <foreground color="-895651"/>
+              <font name="Source Code Pro" size="18" style="1"/>
+              <foreground color="-16777216"/>
               <text value="Account No:-"/>
             </properties>
           </component>
           <component id="26a04" class="javax.swing.JLabel">
             <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <foreground color="-895651"/>
-              <text value="Amount"/>
+              <enabled value="true"/>
+              <font name="Source Code Pro" size="18" style="1"/>
+              <foreground color="-16777216"/>
+              <text value="Amount ($)"/>
             </properties>
           </component>
           <component id="d4625" class="javax.swing.JLabel">
             <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <foreground color="-895651"/>
+              <font name="Source Code Pro" size="18" style="1"/>
+              <foreground color="-16777216"/>
               <text value="Term"/>
             </properties>
           </component>
@@ -81,20 +85,32 @@
       </grid>
       <component id="6d682" class="javax.swing.JButton" binding="issueButton" default-binding="true">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <font name="Source Code Pro" size="20" style="1"/>
           <foreground color="-895651"/>
           <text value="Issue"/>
         </properties>
       </component>
       <component id="fe1e8" class="javax.swing.JButton" binding="onGoingLoansButton" default-binding="true">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <font name="Source Code Pro" size="20" style="1"/>
           <foreground color="-895651"/>
           <text value="On going Loans"/>
+        </properties>
+      </component>
+      <component id="f8566" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Source Code Pro" size="20" style="1"/>
+          <foreground color="-856594"/>
+          <text value="Loan"/>
         </properties>
       </component>
     </children>

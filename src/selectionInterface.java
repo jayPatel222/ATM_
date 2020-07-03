@@ -33,6 +33,7 @@ public class selectionInterface extends JFrame{
                         user.setVisible(true);
                     }
                 });
+                dispose();
             }
         });
         withdrawDepositButton.addActionListener(new ActionListener() {
@@ -54,13 +55,29 @@ public class selectionInterface extends JFrame{
                         user.setVisible(true);
                     }
                 });
+                dispose();
             }
         });
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               dispose();
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        atmInterface user = null;
+                        try {
+                            user = new atmInterface();
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+
+                        user.setVisible(true);
+                    }
+                });
+            dispose();
             }
         });
     }
+
+
 }
