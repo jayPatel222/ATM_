@@ -49,9 +49,16 @@ public class accountTransfer extends JFrame{
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                textField2.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        if (textField2.getText().length() >= 6 ) // limit to 4 characters
+                            e.consume();
+                    }
+                });
                 int recAccountno = Integer.parseInt(textField2.getText());
                 float money = Float.parseFloat(textField3.getText());
-                if (money >= accountInfo ){
+                if (money > accountInfo ){
                     JOptionPane.showMessageDialog(accountTransfer,"Not Enough Funds");
                 }else{
                     String sql1 = "SELECT * from useraccount WHERE accountId = ?";

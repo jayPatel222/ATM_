@@ -29,29 +29,33 @@ public class atmInterface extends JFrame {
         proceedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                     AcNo = checkCredentials(parseInt(textField1.getText()),parseInt(textField2.getText()));
-                    if (AcNo != 0){
-                        dispose();
-                       atmInterface.setVisible(false);
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                selectionInterface user = null;
-                                user = new selectionInterface();
+                if (!textField1.getText().equals("") && !textField2.getText().equals("")) {
+                    try {
+                        AcNo = checkCredentials(parseInt(textField1.getText()), parseInt(textField2.getText()));
+                        if (AcNo != 0) {
+                            dispose();
+                            atmInterface.setVisible(false);
+                            SwingUtilities.invokeLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    selectionInterface user = null;
+                                    user = new selectionInterface();
 
-                                user.setVisible(true);
-                            }
-                        });
+                                    user.setVisible(true);
+                                }
+                            });
 
+                        } else {
+                            AcNo = 0;
+                            JOptionPane.showMessageDialog(atmInterface1, "You  Do not Have Account " +
+                                    "Please Check Account No. and Pin");
+                        }
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
                     }
-                    else {
-                        AcNo = 0;
-                        JOptionPane.showMessageDialog(atmInterface1,"You  Do not Have Account " +
-                                "Please Check Account No. and Pin");
-                    }
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                }
+                else {
+                    JOptionPane.showMessageDialog(atmInterface1, "All fields are mandotory");
                 }
             }
         });
@@ -75,6 +79,20 @@ public class atmInterface extends JFrame {
                     getToolkit().beep();
                     e.consume();
                 }
+            }
+        });
+        textField2.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (textField2.getText().length() >= 4 ) // limit to 4 characters
+                    e.consume();
+            }
+        });
+        textField1.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (textField1.getText().length() >= 6 ) // limit to 4 characters
+                    e.consume();
             }
         });
     }
