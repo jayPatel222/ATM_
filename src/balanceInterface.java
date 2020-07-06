@@ -5,10 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Random;
 
 import static java.lang.Float.parseFloat;
@@ -122,7 +119,9 @@ public class balanceInterface  extends JFrame {
         });
     }
 
-    protected String getSaltString() {
+    protected String getSaltString() throws SQLException {
+        Connex connex = new Connex();
+        Connection connection = connex.connects();
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
@@ -131,8 +130,18 @@ public class balanceInterface  extends JFrame {
             salt.append(SALTCHARS.charAt(index));
         }
         String saltStr = salt.toString();
+        String sql = "SELECT transactionCode from atmproject.transaction";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        ResultSet result = stmt.executeQuery();
+        while (result.next()){
+           if (saltStr.equals(result.getObject("transactionCode"))){
+               getSaltString();
+            }
+        }
         return saltStr;
-
     }
 
+
 }
+
+
