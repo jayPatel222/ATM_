@@ -22,6 +22,7 @@ public class addUser extends JFrame  {
     private JComboBox comboBox2;
     private JButton listUsersButton;
     private JButton manageLoansButton;
+    private JButton resetPasswordButton;
 
     public addUser() throws SQLException {
 
@@ -181,6 +182,21 @@ public class addUser extends JFrame  {
                     getToolkit().beep();
                     e.consume();
                 }
+            }
+        });
+        resetPasswordButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        resetPassword user = null;
+                        user = new resetPassword();
+
+                        user.setVisible(true);
+                    }
+                });
+                dispose();
             }
         });
     }

@@ -86,6 +86,7 @@ public class balanceInterface  extends JFrame {
             }
         });
 
+
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

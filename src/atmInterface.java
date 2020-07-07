@@ -24,6 +24,7 @@ public class atmInterface extends JFrame {
         Connection connection = connex.connects();
         add(atmInterface);
         setTitle("ATM");
+        setIconImage(new ImageIcon(getClass().getResource("/images/atmTwo.png")).getImage());
         setSize(600, 500);
 
         proceedButton.addActionListener(new ActionListener() {

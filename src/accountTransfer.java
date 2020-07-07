@@ -86,7 +86,12 @@ public class accountTransfer extends JFrame{
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
-                    String refId = getSaltString();
+                    String refId = null;
+                    try {
+                        refId = getSaltString();
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
                     try {
                         new Transaction(refId,money, atmInterface.getNo(), 3,recAccountno);
                         JOptionPane.showMessageDialog(accountTransfer,"Reference No.:- "+refId+"\n"+" Transaction amount:- "+money +
@@ -153,7 +158,9 @@ public class accountTransfer extends JFrame{
             }
         });
     }
-    protected String getSaltString() {
+    protected String getSaltString() throws SQLException {
+        Connex connex = new Connex();
+        Connection connection = connex.connects();
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
@@ -162,6 +169,14 @@ public class accountTransfer extends JFrame{
             salt.append(SALTCHARS.charAt(index));
         }
         String saltStr = salt.toString();
+        String sql = "SELECT transactionCode from atmproject.transaction";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        ResultSet result = stmt.executeQuery();
+        while (result.next()){
+            if (saltStr.equals(result.getObject("transactionCode"))){
+                getSaltString();
+            }
+        }
         return saltStr;
 
     }

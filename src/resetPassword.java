@@ -129,6 +129,25 @@ public class resetPassword extends JFrame{
                 }
             }
         });
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        addUser user = null;
+                        try {
+                            user = new addUser();
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+
+                        user.setVisible(true);
+                    }
+                });
+                dispose();
+            }
+        });
     }
 
     static int checkSin(int accountToCheck, int sinToChh) throws SQLException {
