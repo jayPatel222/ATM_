@@ -24,7 +24,7 @@ public class accountTransfer extends JFrame{
         Connex connex = new Connex();
         Connection connection = connex.connects();
         add(accountTransfer);
-        setTitle("Add User");
+        setTitle("E-Transfer");
         setSize(600, 500);
 
         int accounToFetch = atmInterface.getNo();
@@ -49,72 +49,102 @@ public class accountTransfer extends JFrame{
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textField2.addKeyListener(new KeyAdapter() {
-                    @Override
-                    public void keyTyped(KeyEvent e) {
-                        if (textField2.getText().length() >= 6 ) // limit to 4 characters
-                            e.consume();
-                    }
-                });
-                int recAccountno = Integer.parseInt(textField2.getText());
-                float money = Float.parseFloat(textField3.getText());
-                if (money > accountInfo ){
-                    JOptionPane.showMessageDialog(accountTransfer,"Not Enough Funds");
-                }else{
-                    String sql1 = "SELECT * from useraccount WHERE accountId = ?";
-                    PreparedStatement stmt1 = null;
-                    try {
-                        stmt1 = connection.prepareStatement(sql1);
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
-                    try {
-                        stmt1.setInt(1, recAccountno);
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
-                    ResultSet result1 = null;
-                    try {
-                        result1 = stmt1.executeQuery();
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
-                    try {
-                        if (!result1.next()){
-                            JOptionPane.showMessageDialog(accountTransfer,"Account Does not Exists");
+                if (!textField2.getText().equals("") && !textField2.getText().equals("0") &&
+                        !textField3.getText().equals("") && !textField3.getText().equals("0")) {
+                    textField2.addKeyListener(new KeyAdapter() {
+                        @Override
+                        public void keyTyped(KeyEvent e) {
+                            if (textField2.getText().length() >= 6) // limit to 4 characters
+                                e.consume();
                         }
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
-                    String refId = null;
-                    try {
-                        refId = getSaltString();
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
-                    try {
-                        new Transaction(refId,money, atmInterface.getNo(), 3,recAccountno);
-                        JOptionPane.showMessageDialog(accountTransfer,"Reference No.:- "+refId+"\n"+" Transaction amount:- "+money +
-                                "\nAccount No:- " +atmInterface.getNo());
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                atmInterface user = null;
-                                try {
-                                    user = new atmInterface();
-                                } catch (SQLException throwables) {
-                                    throwables.printStackTrace();
-                                }
-
-                                user.setVisible(true);
+                    });
+                    int recAccountno = Integer.parseInt(textField2.getText());
+                    float money = Float.parseFloat(textField3.getText());
+                    if (money > accountInfo) {
+                        JOptionPane.showMessageDialog(accountTransfer, "Not Enough Funds");
+                    } else {
+                        String sql1 = "SELECT * from useraccount WHERE accountId = ?";
+                        PreparedStatement stmt1 = null;
+                        try {
+                            stmt1 = connection.prepareStatement(sql1);
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+                        try {
+                            stmt1.setInt(1, recAccountno);
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+                        ResultSet result1 = null;
+                        try {
+                            result1 = stmt1.executeQuery();
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+                        try {
+                            if (!result1.next()) {
+                                JOptionPane.showMessageDialog(accountTransfer, "Account Does not Exists");
+                                return;
                             }
-                        });
-                        dispose();
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+                        String refId = null;
+                        try {
+                            refId = getSaltString();
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+                        try {
+                            new Transaction(refId, money, atmInterface.getNo(), 3, recAccountno);
+                            String[] options = {"More Transactions", "Close Session"};
+
+                            int x = JOptionPane.showOptionDialog(null,
+                                    "Reference No.:- " + refId + "\n" + " Transaction amount:- "+money +"\nAccount No:- "+ atmInterface.getNo(),
+                                    "Click a button",
+                                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+                            //  "Reference No.:- " + refId + "\n" + " Transaction amount:- " + money +
+                            //         "\nAccount No:- " + atmInterface.getNo()
+                            // JOptionPane.showMessageDialog(panel1, "Reference No.:- " + refId + "\n" + " Transaction amount:- " + money +
+                            //      "\nAccount No:- " + atmInterface.getNo());
+                            System.out.println(x);
+                            if (x != 0) {
+                                SwingUtilities.invokeLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        atmInterface user = null;
+                                        try {
+                                            user = new atmInterface();
+                                        } catch (SQLException throwables) {
+                                            throwables.printStackTrace();
+                                        }
+
+                                        user.setVisible(true);
+                                    }
+                                });
+                            }
+                            else {
+                                SwingUtilities.invokeLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        selectionInterface user = null;
+                                        user = new selectionInterface();
+
+                                        user.setVisible(true);
+                                    }
+                                });
+                            }
+                            dispose();
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
                     }
                 }
+                else {
+                    JOptionPane.showMessageDialog(accountTransfer, "All fields are mandotory");
+                }
             }
+
         });
         cancelButton.addActionListener(new ActionListener() {
             @Override

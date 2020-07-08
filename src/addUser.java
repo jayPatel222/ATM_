@@ -35,27 +35,49 @@ public class addUser extends JFrame  {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String firstName = textField1.getText();
-                String lastName = textField2.getText();
-                String sin = textField3.getText();
-                int score = Integer.parseInt(textField4.getText());
-                int pin = Integer.parseInt(textField5.getText());
-                float accBalance = Float.parseFloat(textField6.getText());
-                if (firstName.equals("") || lastName.equals("") || sin.equals("") || score == 0 || pin == 0 ||
-                accBalance == 0.0) {
+                if (!textField1.getText().equals("") && !textField1.getText().equals("0") &&
+                        !textField2.getText().equals("") && !textField2.getText().equals("0") &&
+                        !textField3.getText().equals("") && !textField3.getText().equals("0") &&
+                        !textField4.getText().equals("") && !textField4.getText().equals("0") &&
+                !textField5.getText().equals("") && !textField5.getText().equals("0") &&
+                        !textField6.getText().equals("") && !textField6.getText().equals("0")) {
+                    String firstName = textField1.getText();
+                    String lastName = textField2.getText();
+                    String sin = textField3.getText();
+                    int score = Integer.parseInt(textField4.getText());
+                    int pin = Integer.parseInt(textField5.getText());
+                    float accBalance = Float.parseFloat(textField6.getText());
+                    if (firstName.equals("") || lastName.equals("") || sin.equals("") || score == 0 || pin == 0 ||
+                            accBalance == 0.0) {
+                        JOptionPane.showMessageDialog(rootPanel, "All fields are Mandotary !!");
+                    } else {
+
+                        int item = Integer.parseInt(comboBox1.getSelectedItem().toString().substring(0, 1));
+                        int ch1 = Integer.parseInt(String.valueOf(item));
+
+                        int item1 = Integer.parseInt(comboBox2.getSelectedItem().toString().substring(0, 1));
+                        int ch2 = Integer.parseInt(String.valueOf(item1));
+                        System.out.println(item + " " + item1);
+                        new UserAccount(firstName, lastName, sin, score, pin, accBalance, ch1, ch2);
+                        JOptionPane.showMessageDialog(rootPanel, "User added");
+                        dispose();
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                addUser user = null;
+                                try {
+                                    user = new addUser();
+                                } catch (SQLException throwables) {
+                                    throwables.printStackTrace();
+                                }
+
+                                user.setVisible(true);
+                            }
+                        });
+                    }
+                }else {
                     JOptionPane.showMessageDialog(rootPanel, "All fields are Mandotary !!");
                 }
-                else {
-
-                    int item = Integer.parseInt(comboBox1.getSelectedItem().toString().substring(0,1));
-                    int ch1 = Integer.parseInt(String.valueOf(item));
-
-                    int item1 = Integer.parseInt(comboBox2.getSelectedItem().toString().substring(0,1));
-                    int ch2 = Integer.parseInt(String.valueOf(item1));
-                    System.out.println(item + " " + item1);
-                    new UserAccount(firstName, lastName, sin, score, pin, accBalance, ch1, ch2);
-                }
-
         }
     });
         String sql = "SELECT * from atmproject.typeac;";

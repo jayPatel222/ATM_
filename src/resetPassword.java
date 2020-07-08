@@ -30,7 +30,9 @@ public class resetPassword extends JFrame{
 
                 try {
                     if (!textField4.getText().equals("") && !textField1.getText().equals("") &&
-                            !textField3.getText().equals("") && !textField2.getText().equals("")) {
+                            !textField3.getText().equals("") && !textField2.getText().equals("") &&
+                            !textField4.getText().equals("0") && !textField1.getText().equals("0") &&
+                            !textField3.getText().equals("0") && !textField2.getText().equals("0")) {
                         int accToChange = 0 + Integer.parseInt(textField4.getText());
                         int SIN = 0 + Integer.parseInt(textField1.getText());
                         int newPin = 0 + Integer.parseInt(textField2.getText());

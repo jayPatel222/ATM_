@@ -46,42 +46,66 @@ public class balanceInterface  extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                int transType = 0;
-                if (withdrawCheckBox.isSelected()){
-                    transType = 1;
-                }
-                else if (depositCheckBox.isSelected()){
-                    transType = 2;
-                }
-                float money = Float.parseFloat(textField2.getText());
-                if (money > accountBalance && transType == 1){
-                    JOptionPane.showMessageDialog(panel1,"Not Enough Funds");
+                if (!textField2.getText().equals("") && !textField2.getText().equals("0")) {
+                    int transType = 0;
+                    if (withdrawCheckBox.isSelected()) {
+                        transType = 1;
+                    } else if (depositCheckBox.isSelected()) {
+                        transType = 2;
+                    }
+                    float money = Float.parseFloat(textField2.getText());
+                    if (money > accountBalance && transType == 1) {
+                        JOptionPane.showMessageDialog(panel1, "Not Enough Funds");
+                    } else {
+                        try {
+                            refId = getSaltString();
+                            new Transaction(refId, money, atmInterface.getNo(), transType, atmInterface.getNo());
+                            String[] options = {"More Transactions", "Close Session"};
+
+                            int x = JOptionPane.showOptionDialog(null,
+                                    "Reference No.:- " + refId + "\n" + " Transaction amount:- "+money +"\nAccount No:- "+ atmInterface.getNo(),
+                                    "Click a button",
+                                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+                          //  "Reference No.:- " + refId + "\n" + " Transaction amount:- " + money +
+                           //         "\nAccount No:- " + atmInterface.getNo()
+                           // JOptionPane.showMessageDialog(panel1, "Reference No.:- " + refId + "\n" + " Transaction amount:- " + money +
+                              //      "\nAccount No:- " + atmInterface.getNo());
+                            System.out.println(x);
+                            if (x != 0) {
+                                SwingUtilities.invokeLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        atmInterface user = null;
+                                        try {
+                                            user = new atmInterface();
+                                        } catch (SQLException throwables) {
+                                            throwables.printStackTrace();
+                                        }
+
+                                        user.setVisible(true);
+                                    }
+                                });
+                            }
+                            else {
+                                SwingUtilities.invokeLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        selectionInterface user = null;
+                                        user = new selectionInterface();
+
+                                        user.setVisible(true);
+                                    }
+                                });
+                            }
+                            dispose();
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+
+                    }
                 }
                 else {
-                    try {
-                         refId = getSaltString();
-                        new Transaction(refId,money, atmInterface.getNo(), transType,atmInterface.getNo());
-
-                        JOptionPane.showMessageDialog(panel1,"Reference No.:- "+refId+"\n"+" Transaction amount:- "+money +
-                                "\nAccount No:- " +atmInterface.getNo());
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                atmInterface user = null;
-                                try {
-                                    user = new atmInterface();
-                                } catch (SQLException throwables) {
-                                    throwables.printStackTrace();
-                                }
-
-                                user.setVisible(true);
-                            }
-                        });
-                        dispose();
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
-
+                    JOptionPane.showMessageDialog(panel1, "All fields are mandotory !");
                 }
             }
         });

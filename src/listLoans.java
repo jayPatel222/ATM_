@@ -18,7 +18,7 @@ public class listLoans extends JFrame {
         Connex connex = new Connex();
         Connection connection = connex.connects();
 
-        setTitle("Users list");
+        setTitle("Loan list");
         setSize(600, 500);
 
 
