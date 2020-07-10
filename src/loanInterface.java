@@ -23,31 +23,38 @@ public class loanInterface extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    int acc = Integer.parseInt(textField1.getText());
-                    int amount = Integer.parseInt(textField2.getText());
-                    int months = Integer.parseInt(textField3.getText());
-                    if (acc == 0 || amount == 0 || months == 0){
-                        JOptionPane.showMessageDialog(loanPanel, "All fields are Mandotary !!");
+                    if (!textField1.getText().equals("") && !textField2.getText().equals("") && !textField3.getText().equals("") &&
+                            !textField1.getText().equals("0") && !textField2.getText().equals("0") && !textField3.getText().equals("0")) {
+
+                        int acc = Integer.parseInt(textField1.getText());
+                        int amount = Integer.parseInt(textField2.getText());
+                        int months = Integer.parseInt(textField3.getText());
+                        if (acc == 0 || amount == 0 || months == 0) {
+                            JOptionPane.showMessageDialog(loanPanel, "All fields are Mandotary !!");
+                        } else {
+                            new Loan(acc, amount, months);
+                            SwingUtilities.invokeLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    listLoans user = null;
+                                    try {
+                                        user = new listLoans();
+                                    } catch (SQLException throwables) {
+                                        throwables.printStackTrace();
+                                    }
+
+                                    user.setVisible(true);
+                                }
+                            });
+                        }
                     }
                     else {
-                        new Loan(acc, amount, months);
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                listLoans user = null;
-                                try {
-                                    user = new listLoans();
-                                } catch (SQLException throwables) {
-                                    throwables.printStackTrace();
-                                }
-
-                                user.setVisible(true);
-                            }
-                        });
+                        JOptionPane.showMessageDialog(loanPanel, "All fields are Mandotary !!");
                     }
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
+                    } catch(SQLException throwables){
+                        throwables.printStackTrace();
+                    }
+
             }
         });
         onGoingLoansButton.addActionListener(new ActionListener() {
