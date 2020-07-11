@@ -20,6 +20,7 @@ public class listUsers extends JFrame {
 
         setTitle("Users list");
         setSize(600, 500);
+        setIconImage(new ImageIcon(getClass().getResource("/images/atmTwo.png")).getImage());
 
 
         String sql = "SELECT * from atmproject.useraccount;";

@@ -31,6 +31,7 @@ public class addUser extends JFrame  {
         add(rootPanel);
         setTitle("Add User");
         setSize(600,500);
+        setIconImage(new ImageIcon(getClass().getResource("/images/atmTwo.png")).getImage());
 
         addButton.addActionListener(new ActionListener() {
             @Override

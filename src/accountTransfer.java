@@ -25,6 +25,7 @@ public class accountTransfer extends JFrame{
         Connection connection = connex.connects();
         add(accountTransfer);
         setTitle("E-Transfer");
+        setIconImage(new ImageIcon(getClass().getResource("/images/atmTwo.png")).getImage());
         setSize(600, 500);
 
         int accounToFetch = atmInterface.getNo();

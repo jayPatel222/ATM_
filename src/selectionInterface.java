@@ -15,6 +15,7 @@ public class selectionInterface extends JFrame{
         Connection connection = connex.connects();
         add(selectionInterface);
         setTitle("Select Transaction type");
+        setIconImage(new ImageIcon(getClass().getResource("/images/atmTwo.png")).getImage());
         setSize(600,500);
         balanceTransferButton.addActionListener(new ActionListener() {
             @Override

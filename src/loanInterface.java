@@ -18,6 +18,7 @@ public class loanInterface extends JFrame{
         Connection connection = connex.connects();
         add(loanPanel);
         setTitle("Start Loan");
+        setIconImage(new ImageIcon(getClass().getResource("/images/atmTwo.png")).getImage());
         setSize(600, 500);
         issueButton.addActionListener(new ActionListener() {
             @Override

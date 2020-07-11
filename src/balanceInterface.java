@@ -31,6 +31,7 @@ public class balanceInterface  extends JFrame {
         add(panel1);
         setTitle("Process Transaction");
         setSize(600, 500);
+        setIconImage(new ImageIcon(getClass().getResource("/images/atmTwo.png")).getImage());
         String sql = "SELECT accountBalance from useraccount WHERE accountId = ?";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, accounToFetch);

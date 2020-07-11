@@ -22,6 +22,7 @@ public class resetPassword extends JFrame{
         Connection connection = connex.connects();
         add(resetInterface);
         setTitle("Change PIN");
+        setIconImage(new ImageIcon(getClass().getResource("/images/atmTwo.png")).getImage());
         setSize(600,500);
         changePinButton.addActionListener(new ActionListener() {
             @Override

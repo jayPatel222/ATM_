@@ -20,7 +20,7 @@ public class listLoans extends JFrame {
 
         setTitle("Loan list");
         setSize(600, 500);
-
+        setIconImage(new ImageIcon(getClass().getResource("/images/atmTwo.png")).getImage());
 
         String sql = "SELECT * from atmproject.loan;";
         PreparedStatement stmt = connection.prepareStatement(sql);
