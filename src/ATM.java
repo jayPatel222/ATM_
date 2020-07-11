@@ -12,9 +12,9 @@ public class ATM {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                atmInterface user = null;
+                addUser user = null;
                 try {
-                    user = new atmInterface();
+                    user = new addUser();
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }

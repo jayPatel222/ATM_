@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class loanInterface extends JFrame{
@@ -33,20 +35,30 @@ public class loanInterface extends JFrame{
                         if (acc == 0 || amount == 0 || months == 0) {
                             JOptionPane.showMessageDialog(loanPanel, "All fields are Mandotary !!");
                         } else {
-                            new Loan(acc, amount, months);
-                            SwingUtilities.invokeLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    listLoans user = null;
-                                    try {
-                                        user = new listLoans();
-                                    } catch (SQLException throwables) {
-                                        throwables.printStackTrace();
-                                    }
+                            String sql = "SELECT * from useraccount WHERE accountId = ?";
+                            PreparedStatement stmt = connection.prepareStatement(sql);
+                            stmt.setInt(1, acc);
+                            ResultSet result = stmt.executeQuery();
+                            if (result.next()){
+                                new Loan(acc, amount, months);
+                                SwingUtilities.invokeLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        listLoans user = null;
+                                        try {
+                                            user = new listLoans();
+                                        } catch (SQLException throwables) {
+                                            throwables.printStackTrace();
+                                        }
 
-                                    user.setVisible(true);
-                                }
-                            });
+                                        user.setVisible(true);
+                                    }
+                                });
+                              dispose();
+                            }
+                            else {
+                                JOptionPane.showMessageDialog(loanPanel, "Account does not exists.");
+                            }
                         }
                     }
                     else {
